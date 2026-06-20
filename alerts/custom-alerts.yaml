@@ -1,0 +1,29 @@
+groups:
+
+* name: kubernetes-monitoring-alerts
+
+  rules:
+
+  * alert: PodDown
+    expr: up == 0
+    for: 1m
+    labels:
+    severity: critical
+    annotations:
+    summary: "Pod is down"
+
+  * alert: HighCPUUsage
+    expr: rate(container_cpu_usage_seconds_total[5m]) > 0.8
+    for: 2m
+    labels:
+    severity: warning
+    annotations:
+    summary: "High CPU Usage Detected"
+
+  * alert: HighMemoryUsage
+    expr: container_memory_usage_bytes > 500000000
+    for: 2m
+    labels:
+    severity: warning
+    annotations:
+    summary: "High Memory Usage Detected"
